@@ -70,6 +70,38 @@ Years In Current Role         0.0
 Years Since Last Promotion    0.0
 Years With Curr Manager       0.0
 ```
+To answer question 1.13, the downloaded dataset won't help. So, I derived a new table from the existing table using pandas.
+```python
+import pandas as pd
+import os
+
+
+root = r"path\to\root"
+hr_data = r"root\HR Data.xlsx - HR data.csv"
+
+hr_df = pd.read_csv(hr_data)
+
+employee_numbers = hr_df["Employee Number"].to_list()
+
+escore = {"Employee Number": [],
+          "EScore Type": []}
+escore_type = ["Environment Satisfaction", "Job Involvement", "Job Satisfaction",
+               "Relationship Satisfaction", "Work Life Balance"]
+
+for enum in employee_numbers:
+    for etype in escore_type:
+        escore["Employee Number"].append(enum)
+        escore["EScore Type"].append(etype)
+
+escore_df = pd.DataFrame(escore)
+
+escore_df.to_csv(os.path.join(root, "etype.csv"))
+```
+
+This new dataset helped me to create,
+
+![image](https://github.com/StarRider/HR-Analytics-Dashboard-in-Tableau/assets/30108439/3e7dd949-b78d-45ad-8455-7866bf5bc0be)
+
 
 ## 4. Analyse data.
 During my analysis I observed the following for this dataset,
